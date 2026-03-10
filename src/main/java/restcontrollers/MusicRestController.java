@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class MusicRestController {
 
     @PostMapping("music-upload")
-    public ResponseEntity<Object> addMusic(String title,
-     String artist,
-     String style,
-     String musicFile){
+    public ResponseEntity<Object> addMusic(String title, String artist,
+                                            String style, String musicFile){
         //receber o arquivo de música
             //criar o novo nome da música
             //gravar o arquivo na pasta MUSICS
