@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlayMySongs</title>
+
 </head>
 <body>
+    <header>
+        <div class="brand">
+            <img src="imgs/mysonglogo.png" alt="Logo PlayMySongs" />
+            <div>
+                <h1>PlayMySongs</h1>
+                <p>Busque e cadastre suas músicas favoritas</p>
+            </div>
+        </div>
+    </header>
+<main>
+    <section class="hero">
+        <h2>Sua biblioteca musical em um só lugar</h2>
+        <p>Pesquise músicas rapidamente e cadastre novas faixas de forma simples. Interface leve, direta e pronta para evoluir depois.</p>
+    </section>
 
+    <section class="grid">
+        <div class="card">
+            <h3>Buscar músicas</h3>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Digite o nome da música ou artista" />
+                <button type="button">Buscar</button>
+            </div>
+
+            <div class="music-list" id="musicList">
+                <div class="music-item">
+                    <h4>Nenhuma música cadastrada</h4>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Cadastrar música</h3>
+            <form>
+                <input type="text" placeholder="Nome da música" />
+                <input type="text" placeholder="Nome do artista" />
+                <input type="file" accept="audio/*" />
+                <input type="text" placeholder="Gênero musical" />
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2026 Guilherme Quintiliano, Rafael Mendes, Rafael Fiori
+</footer>
 </body>
 </html>
