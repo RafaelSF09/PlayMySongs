@@ -1,4 +1,4 @@
-package entities;
+package unoeste.fipp.playmysongs.entities;
 
 public class Music {
     private String title;
