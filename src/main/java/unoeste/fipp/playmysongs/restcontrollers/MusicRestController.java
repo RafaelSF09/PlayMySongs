@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import unoeste.fipp.playmysongs.entities.Music;
+import unoeste.fipp.playmysongs.entities.Style;
 import unoeste.fipp.playmysongs.services.MusicService;
 
 import java.io.Serial;
@@ -39,9 +40,9 @@ public class MusicRestController {
         return ResponseEntity.ok(musicList);
     }
 
-    @GetMapping("get-musics-styles")
+    @GetMapping("get-music-styles")
     public ResponseEntity<Object> getStyles(){
-        //pedir à camada Service as músicas que satisfazem
-        return ResponseEntity.ok("lista de estilos músicais");
+        List<Style> styleList = musicService.getStyles();
+        return ResponseEntity.ok(styleList);
     }
 }

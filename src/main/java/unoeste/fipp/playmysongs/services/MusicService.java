@@ -5,6 +5,7 @@ import com.mongodb.client.*;
 import org.bson.Document;
 import org.springframework.stereotype.Service;
 import unoeste.fipp.playmysongs.entities.Music;
+import unoeste.fipp.playmysongs.entities.Style;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,5 +30,21 @@ public class MusicService {
         }
         mongoClient.close();
         return musicList;
+    }
+    public List<Style> getStyles(){
+
+        MongoClient mongoClient = MongoClients.create(connectionString);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("my_musics");
+
+        MongoCollection<Document> collection = mongoDatabase.getCollection("styles");
+        MongoCursor<Document> cursor = collection.find().iterator();
+
+        List<Style> styleList = new ArrayList<>();
+        while(cursor.hasNext()){
+            Style style = new Gson().fromJson(cursor.next().toJson(),Style.class);
+            styleList.add(style);
+        }
+        mongoClient.close();
+        return styleList;
     }
 }

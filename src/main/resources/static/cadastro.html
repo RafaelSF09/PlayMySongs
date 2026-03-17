@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="css/cadastro.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/padronizacao.css">
+    <script src="js/cadastro.js"></script>
     <title>PlayMySongs</title>
-
 </head>
-<body>
+<body onload="carregarStyles()">
 <header>
     <a class="logo"  href="index.html"><img src="imgs/mysonglogo.png" alt="Logo PlayMySongs" /></a>
     <ul class="paths">
@@ -24,6 +24,9 @@
             <input type="text" placeholder="Nome da música" />
             <input type="text" placeholder="Nome do artista" />
             <input type="file" accept="audio/*" />
+            <select id="stylesCombobox">
+                <option disabled selected>Escolha um estilo</option>
+            </select>
             <input type="text" placeholder="Gênero musical" />
             <button type="submit">Cadastrar</button>
         </form>
