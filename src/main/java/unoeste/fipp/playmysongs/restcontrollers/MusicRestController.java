@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import unoeste.fipp.playmysongs.entities.Erro;
 import unoeste.fipp.playmysongs.entities.Music;
 import unoeste.fipp.playmysongs.entities.Style;
 import unoeste.fipp.playmysongs.services.MusicService;
 
+import java.io.File;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +27,31 @@ public class MusicRestController {
 
     @PostMapping("music-upload")
     public ResponseEntity<Object> addMusic(String title, String artist,
-                                            String style, String musicFile){
-        //receber o arquivo de música
-            //criar o novo nome da música
-            //gravar o arquivo na pasta MUSICS
-        //Criar um obj do tipo entities.Music
-        //Enviar a camada Service para fazer a persistência
-        //Retonar sucesso ou erro
-        return ResponseEntity.ok("");
+                                            String style, MultipartFile musicFile){
+        final String UPLOAD_FOLDER = "src/main/resources/static/posters";
+        if (title==null||title.isEmpty()){
+            return ResponseEntity.badRequest().body(new Erro("Informações incompletas",""));
+        }else{
+            Music musicaNova = new Music(title,artist,style);
+            if(musicFile!=null){
+                StringBuilder fileName = new StringBuilder(title.toLowerCase().replaceAll("\\s+", ""));
+                fileName.append("_").append(style.toLowerCase().replaceAll("\\s+", "")).append("_");
+                fileName.append(artist.toLowerCase().replaceAll("\\s+", ""));
+                fileName.append(".mp3");
+                try{
+                    File uploadFolder = new File(UPLOAD_FOLDER);
+                    if(!uploadFolder.exists()){
+                        uploadFolder.mkdir();
+                    }
+                    musicFile.transferTo(new File(uploadFolder.getAbsolutePath()+ "\\" + fileName.toString()));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                musicaNova.setMusicFile(fileName.toString());
+            }
+            //musicRepository.getMovies().add(musicaNova);
+            return ResponseEntity.ok().body(musicaNova);
+        }
     }
 
     @GetMapping("find-musics")
