@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import unoeste.fipp.playmysongs.entities.Erro;
 import unoeste.fipp.playmysongs.entities.Music;
 import unoeste.fipp.playmysongs.entities.Style;
+import unoeste.fipp.playmysongs.repositories.MusicRepository;
 import unoeste.fipp.playmysongs.services.MusicService;
 
 import java.io.File;
@@ -23,12 +24,15 @@ import java.util.List;
 public class MusicRestController {
 
     @Autowired
+    private MusicRepository musicRepository;
+
+    @Autowired
     private MusicService musicService;
 
     @PostMapping("music-upload")
     public ResponseEntity<Object> addMusic(String title, String artist,
                                             String style, MultipartFile musicFile){
-        final String UPLOAD_FOLDER = "src/main/resources/static/posters";
+        final String UPLOAD_FOLDER = "src/main/resources/static/musics";
         if (title==null||title.isEmpty()){
             return ResponseEntity.badRequest().body(new Erro("Informações incompletas",""));
         }else{
@@ -43,13 +47,13 @@ public class MusicRestController {
                     if(!uploadFolder.exists()){
                         uploadFolder.mkdir();
                     }
-                    musicFile.transferTo(new File(uploadFolder.getAbsolutePath()+ "\\" + fileName.toString()));
+                    musicFile.transferTo(new File(uploadFolder.getAbsolutePath()+ "\\" + fileName));
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
                 musicaNova.setMusicFile(fileName.toString());
             }
-            //musicRepository.getMovies().add(musicaNova);
+            musicRepository.getMusic().add(musicaNova);
             return ResponseEntity.ok().body(musicaNova);
         }
     }
