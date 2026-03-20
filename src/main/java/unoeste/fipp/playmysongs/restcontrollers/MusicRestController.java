@@ -32,7 +32,7 @@ public class MusicRestController {
     @PostMapping("music-upload")
     public ResponseEntity<Object> addMusic(String title, String artist,
                                             String style, MultipartFile musicFile){
-        final String UPLOAD_FOLDER = "src/main/resources/static/musics";
+        final String UPLOAD_FOLDER = "src/main/resources/static/uploads";
         if (title==null||title.isEmpty()){
             return ResponseEntity.badRequest().body(new Erro("Informações incompletas",""));
         }else{
