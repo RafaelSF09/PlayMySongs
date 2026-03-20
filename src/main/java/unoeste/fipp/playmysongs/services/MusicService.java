@@ -15,8 +15,26 @@ public class MusicService {
 
     private final String connectionString = "mongodb://localhost:27017";
 
-    public List<Music> findMusicByKeyword(String keyword){
+    public Music saveMusic(Music music) {
+        MongoClient mongoClient = MongoClients.create(connectionString);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("my_musics");
 
+        MongoCollection<Document> collection = mongoDatabase.getCollection("musics");
+
+        try {
+            Document doc = Document.parse(new Gson().toJson(music));
+
+            collection.insertOne(doc);
+
+            return music;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao salvar música: " + e.getMessage());
+        } finally {
+            mongoClient.close();
+        }
+    }
+
+    public List<Music> findMusicByKeyword(String keyword){
         MongoClient mongoClient = MongoClients.create(connectionString);
         MongoDatabase mongoDatabase = mongoClient.getDatabase("my_musics");
 
@@ -26,7 +44,7 @@ public class MusicService {
         List<Music> musicList = new ArrayList<>();
         while(cursor.hasNext()){
             Music music = new Gson().fromJson(cursor.next().toJson(),Music.class);
-            if(keyword == null || music.getTitle().contains(keyword)){
+            if(keyword == null || music.getMusicFile().contains(keyword.toLowerCase())){
                 musicList.add(music);
             }
         }

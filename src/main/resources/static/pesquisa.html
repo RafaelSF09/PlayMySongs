@@ -10,7 +10,7 @@
     <title>PlayMySongs</title>
 
 </head>
-<body>
+<body onload="pesquisarMusicaNome()">
 <header>
     <a class="logo"  href="index.html"><img src="imgs/mysonglogo.png" alt="Logo PlayMySongs" /></a>
     <ul class="paths">
@@ -23,20 +23,10 @@
         <h3>Buscar músicas</h3>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Digite o nome da música ou artista" />
-            <button type="button">Buscar</button>
+            <button type="button" onclick="pesquisarMusicaNome()">Buscar</button>
         </div>
 
         <div class="music-list" id="musicList">
-            <div class="music-item">
-                <h4>Nenhuma música cadastrada</h4>
-            </div>
-            <div class="music-item">
-                <img src="imgs/green-play-button.png" alt="Botão play">
-                <div>
-                    <h4>${musica.nome}</h4>
-                    <p>${musica.artista}</p>
-                </div>
-            </div>
         </div>
     </div>
 </main>

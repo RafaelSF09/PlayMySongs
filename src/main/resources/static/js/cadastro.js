@@ -1,5 +1,5 @@
 function carregarStyles(){
-    const generos = document.getElementById("stylesCombobox");
+    const generos = document.getElementById("style");
         fetch("http://localhost:8080/apis/get-music-styles")
             .then(response => {
                 if(response.status === 200){

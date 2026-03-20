@@ -68,27 +68,21 @@ button:hover{
 
 .music-item{
     display: flex;
-    align-items:center;
-    gap:20px;
+    flex-direction:column;
+    gap:10px;
     background: #101010;
     border: 1px solid #2f2f2f;
     border-radius: 14px;
     padding: 14px;
     height:fit-content;
-    height:80px;
-    cursor:pointer;
+    height:100px;
 }
 
-.music-item img{
-    height:100%;
+.music-item div{
+    gap:5px;
+    display:flex;
 }
 
-.music-item h4{
-  font-size: 1rem;
-  margin-bottom: 5px;
-}
-
-.music-item p{
-  color: #b8b8b8;
-  font-size: 0.92rem;
+.music-item audio{
+    width:100%;
 }

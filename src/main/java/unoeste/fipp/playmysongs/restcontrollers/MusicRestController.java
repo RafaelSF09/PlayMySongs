@@ -3,10 +3,7 @@ package unoeste.fipp.playmysongs.restcontrollers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import unoeste.fipp.playmysongs.entities.Erro;
 import unoeste.fipp.playmysongs.entities.Music;
@@ -30,30 +27,28 @@ public class MusicRestController {
     private MusicService musicService;
 
     @PostMapping("music-upload")
-    public ResponseEntity<Object> addMusic(String title, String artist,
-                                            String style, MultipartFile musicFile){
+    public ResponseEntity<Object> addMusic(@RequestParam String title, @RequestParam String artist,
+                                           @RequestParam MultipartFile musicFile, @RequestParam String style){
         final String UPLOAD_FOLDER = "src/main/resources/static/uploads";
-        if (title==null||title.isEmpty()){
+        if (title==null||title.isEmpty() || artist == null || artist.isEmpty() || style == null || style.isEmpty() || musicFile == null || musicFile.isEmpty()){
             return ResponseEntity.badRequest().body(new Erro("Informações incompletas",""));
         }else{
             Music musicaNova = new Music(title,artist,style);
-            if(musicFile!=null){
-                StringBuilder fileName = new StringBuilder(title.toLowerCase().replaceAll("\\s+", ""));
-                fileName.append("_").append(style.toLowerCase().replaceAll("\\s+", "")).append("_");
-                fileName.append(artist.toLowerCase().replaceAll("\\s+", ""));
-                fileName.append(".mp3");
-                try{
-                    File uploadFolder = new File(UPLOAD_FOLDER);
-                    if(!uploadFolder.exists()){
-                        uploadFolder.mkdir();
-                    }
-                    musicFile.transferTo(new File(uploadFolder.getAbsolutePath()+ "\\" + fileName));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+            StringBuilder fileName = new StringBuilder(title.toLowerCase().replaceAll("\\s+", ""));
+            fileName.append("_").append(style.toLowerCase().replaceAll("\\s+", "")).append("_");
+            fileName.append(artist.toLowerCase().replaceAll("\\s+", ""));
+            musicaNova.setMusicFile(fileName.toString());
+            fileName.append(".mp3");
+            try{
+                File uploadFolder = new File(UPLOAD_FOLDER);
+                if(!uploadFolder.exists()){
+                    uploadFolder.mkdir();
                 }
-                musicaNova.setMusicFile(fileName.toString());
+                musicFile.transferTo(new File(uploadFolder.getAbsolutePath()+ "\\" + fileName));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-            musicRepository.getMusic().add(musicaNova);
+            musicService.saveMusic(musicaNova);
             return ResponseEntity.ok().body(musicaNova);
         }
     }

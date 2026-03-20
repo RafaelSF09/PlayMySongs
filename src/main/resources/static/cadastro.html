@@ -20,14 +20,14 @@
 <main>
     <div class="form">
         <h3>Cadastrar música</h3>
-        <form>
+        <form method="post" enctype="multipart/form-data" id="form">
             <input type="text" placeholder="Nome da música" id="title" name="title"/>
             <input type="text" placeholder="Nome do artista" id="artist" name="artist"/>
             <input type="file" accept="audio/*" id="musicFile" name="musicFile"/>
-            <select id="style">
+            <select id="style" name="style">
                 <option disabled selected>Escolha um estilo</option>
             </select>
-            <button type="submit" onclick="cadastrarMusica()">Cadastrar</button>
+            <button type="button" onclick="cadastrarMusica()">Cadastrar</button>
         </form>
     </div>
 </main>
