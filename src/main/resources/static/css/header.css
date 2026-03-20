@@ -27,6 +27,11 @@ header{
   object-fit: cover;
   border-radius: 14px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    display:flex;
+    text-decoration:none;
+    color:white;
+    align-items:center;
+    gap: 10px;
 }
 
 .logo img{

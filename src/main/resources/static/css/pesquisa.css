@@ -67,10 +67,20 @@ button:hover{
 }
 
 .music-item{
-  background: #101010;
-  border: 1px solid #2f2f2f;
-  border-radius: 14px;
-  padding: 14px;
+    display: flex;
+    align-items:center;
+    gap:20px;
+    background: #101010;
+    border: 1px solid #2f2f2f;
+    border-radius: 14px;
+    padding: 14px;
+    height:fit-content;
+    height:80px;
+    cursor:pointer;
+}
+
+.music-item img{
+    height:100%;
 }
 
 .music-item h4{

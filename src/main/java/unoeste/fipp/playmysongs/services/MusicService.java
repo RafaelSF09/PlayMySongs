@@ -26,7 +26,9 @@ public class MusicService {
         List<Music> musicList = new ArrayList<>();
         while(cursor.hasNext()){
             Music music = new Gson().fromJson(cursor.next().toJson(),Music.class);
-            musicList.add(music);
+            if(keyword == null || music.getTitle().contains(keyword)){
+                musicList.add(music);
+            }
         }
         mongoClient.close();
         return musicList;
