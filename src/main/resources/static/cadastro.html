@@ -21,14 +21,13 @@
     <div class="form">
         <h3>Cadastrar música</h3>
         <form>
-            <input type="text" placeholder="Nome da música" />
-            <input type="text" placeholder="Nome do artista" />
-            <input type="file" accept="audio/*" />
-            <select id="stylesCombobox">
+            <input type="text" placeholder="Nome da música" id="title" name="title"/>
+            <input type="text" placeholder="Nome do artista" id="artist" name="artist"/>
+            <input type="file" accept="audio/*" id="musicFile" name="musicFile"/>
+            <select id="style">
                 <option disabled selected>Escolha um estilo</option>
             </select>
-            <input type="text" placeholder="Gênero musical" />
-            <button type="submit">Cadastrar</button>
+            <button type="submit" onclick="cadastrarMusica()">Cadastrar</button>
         </form>
     </div>
 </main>

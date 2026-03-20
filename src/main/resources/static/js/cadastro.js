@@ -21,3 +21,22 @@ function carregarCombobox(json){
     }
     return options;
 }
+
+function cadastrarMusica() {
+    const formMusica = document.forms[0];
+    const requestOptions = {
+        method: "POST",
+        body: new FormData(formMusica)
+    };
+    fetch("http://localhost:8080/apis/music-upload", requestOptions)
+        .then((response) => {
+            if (response.status === 200){
+                return response.json()
+                    .then(musica =>{
+                        alert(musica.artist + ' adicionado com sucesso');
+                    });
+            }else{
+                alert("Erro ao adicionar a musica!");
+            }
+        });
+}
